@@ -1,0 +1,18 @@
+group 'cn.edu.ustc.Guerrillas.BigBlock'
+version '0.1'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile project(':server')
+    compile project(':client')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+mainClassName = 'Demo'
