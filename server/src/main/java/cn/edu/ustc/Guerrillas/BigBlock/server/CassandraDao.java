@@ -30,7 +30,7 @@ public class CassandraDao {
         session.execute("USE BigBlock");
         session.execute("CREATE TABLE IF NOT EXISTS public_key (id text PRIMARY KEY, pubKey blob)");
         session.execute("CREATE TABLE IF NOT EXISTS blocks(" +
-                "repo text, prevId UUID, prevTimeStamp bigint, tradeHash blob, uuid UUID, " +
+                "repo text, prevId UUID, tradeTimeStamp bigint, tradeHash blob, uuid UUID, " +
                 "signedHashCode blob, fileHashCode blob, committer text, timeStamp bigint, " +
                 "PRIMARY KEY (uuid))");
         session.execute("CREATE INDEX IF NOT EXISTS ON blocks (repo)");

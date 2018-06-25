@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Block {
     private String repo;
     private UUID prevId;
-    private long prevTimeStamp;
+    private long tradeTimeStamp;
     private byte[] tradeHash;
     private UUID uuid;
     private byte[] signedHashCode;
@@ -27,7 +27,7 @@ public class Block {
     }
 
     public Block(byte[] tradeHash, UUID prevId, String committer, PrivateKey privateKey, File file, String repo,
-                 long prevTimeStamp) {
+                 long tradeTimeStamp) {
         this.uuid = UUID.randomUUID();
         this.prevId = prevId;
         try {
@@ -40,14 +40,14 @@ public class Block {
         this.tradeHash = tradeHash;
         this.committer = committer;
         this.repo = repo;
-        this.prevTimeStamp = prevTimeStamp;
+        this.tradeTimeStamp = tradeTimeStamp;
     }
 
-    public Block(String repo, UUID prevId, long prevTimeStamp, byte[] tradeHash, UUID uuid, byte[] signedHashCode,
+    public Block(String repo, UUID prevId, long tradeTimeStamp, byte[] tradeHash, UUID uuid, byte[] signedHashCode,
                  byte[] fileHashCode, String committer, long timeStamp) {
         this.repo = repo;
         this.prevId = prevId;
-        this.prevTimeStamp = prevTimeStamp;
+        this.tradeTimeStamp = tradeTimeStamp;
         this.tradeHash = tradeHash;
         this.uuid = uuid;
         this.signedHashCode = signedHashCode;
@@ -108,7 +108,7 @@ public class Block {
 
     public boolean checkPrev(PublicKey prevPublicKey, byte[] prevFileHash) {
         HashFunction hf = Hashing.sha256();
-        byte[] hashBytes = hf.newHasher().putBytes(prevFileHash).putLong(prevTimeStamp).hash().asBytes();
+        byte[] hashBytes = hf.newHasher().putBytes(prevFileHash).putLong(tradeTimeStamp).hash().asBytes();
         return verify(prevPublicKey, tradeHash, hashBytes);
     }
 
@@ -136,8 +136,8 @@ public class Block {
         return fileHashCode;
     }
 
-    public long getPrevTimeStamp() {
-        return prevTimeStamp;
+    public long getTradeTimeStamp() {
+        return tradeTimeStamp;
     }
 
     public UUID getUuid() {

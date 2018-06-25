@@ -13,7 +13,7 @@ import java.util.UUID;
 class BlockObject {
     String repo;
     UUID prevId;
-    long prevTimeStamp;
+    long tradeTimeStamp;
     ByteBuffer tradeHash;
     @PartitionKey(0)
     UUID uuid;
@@ -25,7 +25,7 @@ class BlockObject {
     BlockObject(Block block) {
         repo = block.getRepo();
         prevId = block.getPrevId();
-        prevTimeStamp = block.getPrevTimeStamp();
+        tradeTimeStamp = block.getTradeTimeStamp();
         tradeHash = ByteBuffer.wrap(block.getTradeHash());
         uuid = block.getUuid();
         signedHashCode = ByteBuffer.wrap(block.getSignedHashCode());
@@ -38,7 +38,7 @@ class BlockObject {
     }
 
     Block toBlock() {
-        return new Block(repo, prevId, prevTimeStamp, tradeHash.array(), uuid, signedHashCode.array(),
+        return new Block(repo, prevId, tradeTimeStamp, tradeHash.array(), uuid, signedHashCode.array(),
                 fileHashCode.array(), committer, timeStamp);
     }
 }
